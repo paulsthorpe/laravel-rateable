@@ -14,7 +14,9 @@ trait Rateable
 
     public function averageRating()
     {
-        return $this->ratings()->avg('rating');
+         return $this->morphMany('willvincent\Rateable\Rating', 'rateable')
+            ->selectRaw('AVG(rating) as rating, rateable_id')
+            ->groupBy('rateable_id');
     }
 
     public function sumRating()
